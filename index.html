@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підрахунок балів у грі</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeb3b, #ff9800);
+            color: #333;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #f57c00;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 10px 0;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 2px solid #f57c00;
+            width: 150px;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #f57c00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #d32f2f;
+        }
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #f44336;
+            background-color: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Підрахунок балів у грі</h1>
+        <p>Введіть бали за кожен раунд:</p>
+
+        <div class="input-container">
+            <input type="number" id="score" placeholder="Бали" required>
+        </div>
+
+        <button class="button" onclick="addScore()">Додати бали</button>
+        <button class="button" onclick="calculateResults()">Показати результати</button>
+
+        <div id="result" class="result">Результати з'являться тут</div>
+    </div>
+
+    <script>
+        "use strict";
+
+        let scores = []; 
+        function addScore() {
+            let scoreInput = document.getElementById("score");
+            let score = Number(scoreInput.value);
+            
+            if (!isNaN(score) && score >= 0) {
+                scores.push(score);
+                scoreInput.value = ''; 
+                alert("Бали успішно додані!");
+            } else {
+                alert("Будь ласка, введіть дійсне число балів.");
+            }
+        }
+        function calculateResults() {
+            if (scores.length === 0) {
+                document.getElementById("result").innerHTML = "Будь ласка, додайте бали для обчислення.";
+                return;
+            }
+            let total = scores.reduce((acc, score) => acc + score, 0);
+            let average = total / scores.length;
+            document.getElementById("result").innerHTML = `
+                Загальна кількість балів: ${total}<br>
+                Середня кількість балів: ${average.toFixed(2)}<br>
+                Кількість раундів: ${scores.length}
+            `;
+        }
+    </script>
+
+</body>
+</html>
